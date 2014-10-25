@@ -1,0 +1,20 @@
+{
+  "name": "advent-lieke-2014",
+  "version": "0.0.0",
+  "description": "Advent Calender Magic Machine",
+  "main": "main.js",
+  "dependencies": {
+    "bezier-easing": "^0.4.3",
+    "body-parser": "^1.9.0",
+    "color": "^0.7.1",
+    "express": "^4.9.5",
+    "johnny-five": "^0.8.9",
+    "promise": "^6.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
