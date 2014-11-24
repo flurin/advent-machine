@@ -5,13 +5,23 @@ var config = {
   port: 3000,
   scheduleInterval : 5000,
   messages : null,
-  queue : null
+  queue : null,
+  printerConfig : {
+    port: '/dev/ttyAMA0',
+    printerOptions : {
+      maxPrintingDots : 7,
+      heatingTime : 150,
+      heatingInterval : 2,
+      commandDelay: 0
+    }
+  }
 }
 
 config.trello = require(config.trelloConfigPath);
 
 config.messages = require("./lib/trello/messages")(config);
 config.queue = require("./lib/trello/queue")(config);
+config.printer = require("./lib/printer")(config);
 
 // Server
 var Server = require("./lib/server")(config);
@@ -19,23 +29,23 @@ var Server = require("./lib/server")(config);
 // var Scheduler = require("./lib/scheduler")(config);
 
 // Start Server
-// Server.start();
+Server.start();
 
-var trello = require("./lib/trello/base")(config);
+// var trello = require("./lib/trello/base")(config);
 
 
-config.messages.getPastDueDate().then(function(messages){
-  // console.log(messages);
-  if(messages[0]){
-    return trello.moveCard(messages[0], "queue");
-  }
-}).then(function(data){
-  console.log(data);
-}).then(function(){
-  return config.queue.unshift()
-}).then(function(message){
-  console.log(message);
-}).catch(function(err){
-  console.log("ERROR", err);
-})
+// config.messages.getPastDueDate().then(function(messages){
+//   // console.log(messages);
+//   if(messages[0]){
+//     return trello.moveCard(messages[0], "queue");
+//   }
+// }).then(function(data){
+//   console.log(data);
+// }).then(function(){
+//   return config.queue.unshift()
+// }).then(function(message){
+//   console.log(message);
+// }).catch(function(err){
+//   console.log("ERROR", err);
+// })
 
