@@ -8,8 +8,11 @@
   </head>
   <body>
     <form action="/printer" method="post">
-      <textarea name="content"></textarea>
-      <button type="submit">Print!</button>
+      <div>
+        <textarea name="content" cols="32" rows="10"></textarea>
+      </div>
+      <button type="submit" name="action" value="text">Print!</button>
+      <button type="submit" name="action" value="image">Print test image!</button>
     </form>
   </body>
 </html>
