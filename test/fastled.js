@@ -1,8 +1,8 @@
 var Five = require("johnny-five");
-var FastLED = require("../fastled");
+var FastLED = require("../lib/fastled");
 var Promise = require('promise');
 var Color = require("color");
-var fader = require("../color_fade");
+var fader = require("../lib/color_fade");
 
 var chaser = [
   new Color().rgb(255,0,0),
@@ -66,7 +66,7 @@ var sequencer = function(){
 
 var board = new Five.Board();
 board.on("ready", function() {
-  led = new FastLED(board.io, 4);
+  led = new FastLED(board.io, 12);
 
   var sequence = sequencer();
   // var color = new Color().rgb(255,0,255);
