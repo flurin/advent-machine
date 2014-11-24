@@ -14,7 +14,8 @@
     "oauth": "^0.9.12",
     "promise": "^6.0.0",
     "promise-debounce": "^1.0.0",
-    "request": "^2.48.0"
+    "request": "^2.48.0",
+    "thermalprinter": "https://github.com/flurin/thermalPrinter/tarball/feature-imageprinting"
   },
   "devDependencies": {},
   "scripts": {
