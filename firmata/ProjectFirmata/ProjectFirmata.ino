@@ -49,7 +49,7 @@
 #define FASTLED_SHOW   0x02 //  
 
 #define LED_PIN 6
-#define LED_COUNT 5
+#define LED_COUNT 12
 
 
 /*==============================================================================
