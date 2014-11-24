@@ -1,5 +1,10 @@
 # Adafruit Thermal Printer
 
+## Some properties
+
+- Does 32 chars per line in normal font
+
+
 ## Printer commands through XML
 
 These are just some ideas of how you could tackle print formatting.
