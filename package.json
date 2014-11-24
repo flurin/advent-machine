@@ -8,8 +8,13 @@
     "body-parser": "^1.9.0",
     "color": "^0.7.1",
     "express": "^4.9.5",
+    "extend": "^2.0.0",
     "johnny-five": "^0.8.9",
-    "promise": "^6.0.0"
+    "node-trello": "^1.0.1",
+    "oauth": "^0.9.12",
+    "promise": "^6.0.0",
+    "promise-debounce": "^1.0.0",
+    "request": "^2.48.0"
   },
   "devDependencies": {},
   "scripts": {
