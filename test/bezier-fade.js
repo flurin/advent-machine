@@ -122,13 +122,16 @@ function fade(t, p1x, p1y, p2x, p2y){
       led.setColor(iN, colors[steps]);
     }
     led.show();
+    led.drain().then(function(){
+      currentFade = setTimeout(fadeStep, stepTime);
+    })
 
     // sequence.then(function(){
     //   return led.show();
     // }).then(function(){
     //   return led.drain();
     // }).then(function(){
-      currentFade = setTimeout(fadeStep, stepTime);
+      // currentFade = setTimeout(fadeStep, stepTime);
     // })
 
   }
