@@ -6,6 +6,10 @@ var config = {
   scheduleInterval : 5000,
   messages : null,
   queue : null,
+  boardConfig : {
+    buttonPin : 1,
+    ledCount: 12
+  },
   printerConfig : {
     port: '/dev/ttyAMA0',
     printerOptions : {
@@ -23,29 +27,41 @@ config.messages = require("./lib/trello/messages")(config);
 config.queue = require("./lib/trello/queue")(config);
 config.printer = require("./lib/printer")(config);
 
+
 // Server
 var Server = require("./lib/server")(config);
 
-// var Scheduler = require("./lib/scheduler")(config);
+// Scheduler
+var Scheduler = require("./lib/scheduler")(config);
 
-// Start Server
-Server.start();
+// Board
+var Board = require("./lib/arduino/board")(config);
 
-// var trello = require("./lib/trello/base")(config);
+Scheduler.on("schedule", function(message){
+  // Pulse leds
+})
 
+var busy = false;
+Board.on("buttonDown", function(){
+  if(busy){ return; }
+  busy = true;
+  config.queue.unshift().catch(function(err){
+    if(err == "no_messages"){
+      return config.messages.getRandomImpatience();
+    } else {
+      throw err;
+    }
+  }).then(function(message){
+    console.log("PRINT MESSAGE", message);
 
-// config.messages.getPastDueDate().then(function(messages){
-//   // console.log(messages);
-//   if(messages[0]){
-//     return trello.moveCard(messages[0], "queue");
-//   }
-// }).then(function(data){
-//   console.log(data);
-// }).then(function(){
-//   return config.queue.unshift()
-// }).then(function(message){
-//   console.log(message);
-// }).catch(function(err){
-//   console.log("ERROR", err);
-// })
+    // Board.pulseLeds();
+    busy = false;
+  });
+})
 
+// Start the whole shebang
+Board.start().then(function(){
+  return Scheduler.start();
+}).then(function(){
+  return Server.start();
+})
