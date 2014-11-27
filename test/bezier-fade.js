@@ -55,6 +55,23 @@ board.on("ready", function() {
   led = new FastLED(board.io, 12);
 });
 
+var wait = function(milis){
+  return new Promise(function(resolve, reject){
+    return setTimeout(resolve, milis);
+  });
+}
+
+var calculateFadeColors = function(p1x, p1y, p2x, p2y){
+  var fader = BezierEasing(p1x, p1y, p2x, p2y);
+  var totalSteps = 255;
+  var colors = [];
+  for(var i=0; i < totalSteps; i++){
+    var v = fader(1 - ((i+1)/totalSteps));
+    colors.push(color.clone().mix(black, v));
+  }
+  return colors.slice().concat(colors.reverse());
+}
+
 
 var currentFade;
 
@@ -70,8 +87,34 @@ function stopFade(){
 }
 
 function fade(t, p1x, p1y, p2x, p2y){
-  console.log(p1x, p1y, p2x, p2y);
+  var steps = 0;
+  var colors = calculateFadeColors(p1x, p1y, p2x, p2y);
+  var stepTime = Math.ceil(t/colors.length);
 
+  console.log("StepTime", stepTime, "colors", colors.length);
+
+  if(currentFade){
+    clearTimeout(currentFade);
+  }
+
+  var fadeStep = function(){
+    steps += 1
+    if(steps >= colors.length){
+      steps = 0;
+    }
+
+    for(var iN=0; iN < led.length; iN++){
+      led.setColor(iN, colors[steps]);
+    }
+    led.show();
+
+    currentFade = setTimeout(fadeStep, stepTime);
+  }
+
+  fadeStep();
+}
+
+function fade2(t, p1x, p1y, p2x, p2y){
   var fader = BezierEasing(p1x, p1y, p2x, p2y);
   var totalSteps = 255;
   var stepTime = Math.ceil(t/totalSteps);
