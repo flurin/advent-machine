@@ -1,8 +1,7 @@
 var Five = require("johnny-five");
-var FastLED = require("../fastled");
+var FastLED = require("../lib/fastled");
 var Promise = require('promise');
 var Color = require("color");
-var fader = require("../color_fade");
 
 var chaser = [
   new Color().rgb(255,0,0),
@@ -11,7 +10,7 @@ var chaser = [
   // new Color().rgb(255,255,0),
   // new Color().rgb(255,0,255),
   // new Color().rgb(0,255,255),
-  // new Color().rgb(255,255,255),  
+  // new Color().rgb(255,255,255),
 ]
 
 var black = new Color().rgb(0,0,0);
@@ -28,7 +27,7 @@ var pulse = function(n){
   var sequenceCounter = counter * led.length;
   for(var i=0; i < sequenceCounter; i++){
     (function(i){
-      sequence = sequence.then(function(){ return wait(16); }).then(function(){    
+      sequence = sequence.then(function(){ return wait(16); }).then(function(){
         for(var iN=0; iN < led.length; iN++){
           var shift = iN * counter;
 
@@ -38,19 +37,19 @@ var pulse = function(n){
             var mix = led.values[iN] && new Color().rgb(led.values[iN]) || black;
             mix = black;
             var col = chaser[n].clone().mix(mix, 1 - co);
-            led.setColor(iN, col);  
+            led.setColor(iN, col);
           } else if( i > shift + counter){
-            // led.setColor(iN, chaser[n]);              
+            // led.setColor(iN, chaser[n]);
           }
           // var co = Math.abs(Math.sin(i * (Math.PI/counter)));
           // var co = (Math.sin((i - counter/4) * (Math.PI/(counter/2))) + 1)/2;
           // var col = chaser[n].clone().mix(black, 1 - co);
-          // led.setColor(iN, col);  
+          // led.setColor(iN, col);
         }
-        
+
         led.show();
         return;
-      }, function(err){ console.log(err); })   
+      }, function(err){ console.log(err); })
     })(i);
   }
 
@@ -74,7 +73,7 @@ var pulser = function(){
 
 var board = new Five.Board();
 board.on("ready", function() {
-  led = new FastLED(board.io, 4);
+  led = new FastLED(board.io, 12);
 
   // pulse(0).then(function(){ pulse(1); });
   pulser();
