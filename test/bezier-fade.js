@@ -121,6 +121,7 @@ function fade(t, p1x, p1y, p2x, p2y){
     currentFade = setTimeout(fadeStep, stepTime);
   }
 
+  currentFade = true;
   fadeStep();
 }
 
