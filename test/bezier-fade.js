@@ -91,7 +91,7 @@ function fade(t, p1x, p1y, p2x, p2y){
   var colors = calculateFadeColors(p1x, p1y, p2x, p2y);
   var stepTime = Math.ceil(t/colors.length);
 
-  console.log("StepTime", stepTime, "colors", colors.length);
+  console.log("t", t, "StepTime", stepTime, "colors", colors.length);
 
   if(currentFade){
     clearTimeout(currentFade);
