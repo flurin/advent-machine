@@ -52,7 +52,7 @@ app.listen(3000);
 var board = new Five.Board();
 var led;
 board.on("ready", function() {
-  led = new FastLED(board.io, 5);
+  led = new FastLED(board.io, 12);
 });
 
 
