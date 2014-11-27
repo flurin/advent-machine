@@ -123,6 +123,8 @@ function fade(t, p1x, p1y, p2x, p2y){
     sequence.then(function(){
       return led.show();
     }).then(function(){
+      return led.drain();
+    }).then(function(){
       currentFade = setTimeout(fadeStep, stepTime);
     })
 
