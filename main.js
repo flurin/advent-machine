@@ -7,7 +7,7 @@ var config = {
   messages : null,
   queue : null,
   boardConfig : {
-    buttonPin : 1,
+    buttonPin : 2,
     ledCount: 12
   },
   printerConfig : {
