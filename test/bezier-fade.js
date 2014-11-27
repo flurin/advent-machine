@@ -90,15 +90,20 @@ function fade(t, p1x, p1y, p2x, p2y){
   var steps = 0;
   var colors = calculateFadeColors(p1x, p1y, p2x, p2y);
   var stepTime = Math.ceil(t/colors.length);
+  var stepIncrease = 1;
 
-  console.log("t", t, "StepTime", stepTime, "colors", colors.length);
+  if(stepTime < 16){
+    stepIncrease = Math.floor(16/stepTime);
+  }
+
+  console.log("t", t, "StepTime", stepTime, "stepIncrease", stepIncrease, "colors", colors.length);
 
   if(currentFade){
     clearTimeout(currentFade);
   }
 
   var fadeStep = function(){
-    steps += 1
+    steps += stepIncrease
     if(steps >= colors.length){
       steps = 0;
     }
