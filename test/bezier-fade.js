@@ -116,17 +116,20 @@ function fade(t, p1x, p1y, p2x, p2y){
 
     var sequence = Promise.resolve();
     for(var iN=0; iN < led.length; iN++){
-      sequence = sequence.then(function(){
-        return led.setColor(iN, colors[steps]);
-      });
+      // sequence = sequence.then(function(){
+        // return led.setColor(iN, colors[steps]);
+      // });
+      led.setColor(iN, colors[steps]);
     }
-    sequence.then(function(){
-      return led.show();
-    }).then(function(){
-      return led.drain();
-    }).then(function(){
+    led.show();
+
+    // sequence.then(function(){
+    //   return led.show();
+    // }).then(function(){
+    //   return led.drain();
+    // }).then(function(){
       currentFade = setTimeout(fadeStep, stepTime);
-    })
+    // })
 
   }
 
