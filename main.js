@@ -14,9 +14,9 @@ var config = {
     port: '/dev/ttyAMA0',
     printerOptions : {
       maxPrintingDots : 7,
-      heatingTime : 150,
-      heatingInterval : 2,
-      commandDelay: 0
+      heatingTime : 200,
+      heatingInterval : 200,
+      commandDelay: 200
     }
   }
 }
