@@ -92,10 +92,11 @@ function fade(t, p1x, p1y, p2x, p2y){
   var colors = calculateFadeColors(p1x, p1y, p2x, p2y);
   var stepTime = Math.ceil(t/colors.length);
   var stepIncrease = 1;
+  var maxStepTime = 16;
 
-  if(stepTime < 16){
-    stepIncrease = Math.floor(16/stepTime);
-    stepTime = 16;
+  if(stepTime < maxStepTime){
+    stepIncrease = Math.floor(maxStepTime/stepTime);
+    stepTime = maxStepTime;
   }
 
   console.log("t", t, "StepTime", stepTime, "stepIncrease", stepIncrease, "colors", colors.length);
@@ -113,12 +114,18 @@ function fade(t, p1x, p1y, p2x, p2y){
       steps = 0;
     }
 
+    var sequence = Promise.resolve();
     for(var iN=0; iN < led.length; iN++){
-      led.setColor(iN, colors[steps]);
+      sequence = sequence.then(function(){
+        return led.setColor(iN, colors[steps]);
+      });
     }
-    led.show();
+    sequence.then(function(){
+      return led.show();
+    }).then(function(){
+      currentFade = setTimeout(fadeStep, stepTime);
+    })
 
-    currentFade = setTimeout(fadeStep, stepTime);
   }
 
   currentFade = true;
