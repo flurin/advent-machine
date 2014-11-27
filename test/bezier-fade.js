@@ -38,7 +38,7 @@ app.post("/fade", function(req, res){
   }
 
   if(led){
-    fade(points.fadeTime, X(points.cp1), Y(points.cp1), X(points.cp2), Y(points.p2));
+    fade(parseInt(points.fadeTime), X(points.cp1), Y(points.cp1), X(points.cp2), Y(points.p2));
   }
 });
 

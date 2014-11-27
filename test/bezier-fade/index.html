@@ -46,19 +46,19 @@
         p2: { x:200, y:50 },
         // p3: { x:550, y:200}
       };
-      
+
       point.cp1 = { x: 50, y: 100 };
       point.cp2 = { x: 150, y: 50 };
-      // point.cp3 = { x: 450, y: 50 };      
+      // point.cp3 = { x: 450, y: 50 };
       // point.cp4 = { x: 550, y: 100 };
-      
+
       // default styles
       style = {
         curve:  { width: 6, color: "#333" },
         cpline: { width: 1, color: "#C00" },
         point: { radius: 10, width: 2, color: "#900", fill: "rgba(200,200,200,0.5)", arc1: 0, arc2: 2 * Math.PI }
       }
-      
+
       // line style defaults
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
@@ -67,15 +67,15 @@
       canvas.onmousedown = DragStart;
       canvas.onmousemove = Dragging;
       canvas.onmouseup = canvas.onmouseout = DragEnd;
-      
+
       DrawCanvas();
     }
-    
-    
+
+
     // draw canvas
     function DrawCanvas() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       // control lines
       ctx.lineWidth = style.cpline.width;
       ctx.strokeStyle = style.cpline.color;
@@ -94,7 +94,7 @@
 
 
       ctx.stroke();
-      
+
       // curve
       ctx.lineWidth = style.curve.width;
       ctx.strokeStyle = style.curve.color;
@@ -118,12 +118,12 @@
         ctx.fill();
         ctx.stroke();
       }
-      
+
     }
-    
-    
-    
-    
+
+
+
+
     // start dragging
     function DragStart(e) {
       e = MousePos(e);
@@ -140,8 +140,8 @@
         }
       }
     }
-    
-    
+
+
     // dragging
     function Dragging(e) {
       if (drag) {
@@ -152,8 +152,8 @@
         DrawCanvas();
       }
     }
-    
-    
+
+
     // end dragging
     function DragEnd(e) {
       drag = null;
@@ -161,7 +161,7 @@
       DrawCanvas();
     }
 
-    
+
     // event parser
     function MousePos(event) {
       event = (event ? event : window.event);
@@ -176,10 +176,10 @@
       var request = new XMLHttpRequest();
       request.open('POST', url, true);
       request.setRequestHeader('Content-Type', 'application/json');
-      request.send(data);      
+      request.send(data);
     }
-    
-    
+
+
     // start
     canvas = document.getElementById("canvas");
     if (canvas.getContext) {
@@ -192,6 +192,7 @@
     });
 
     document.getElementById("button-fade").addEventListener("click", function(){
+      point.fadeTime = document.getElementById("input-fade-time").value * 1
       sendData("/fade", JSON.stringify(point));
     });
 
@@ -201,10 +202,10 @@
 
 
 
-    
+
   })();
 
-   
+
 
 
 
