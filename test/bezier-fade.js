@@ -3,10 +3,9 @@ var bodyParser = require('body-parser');
 var BezierEasing = require('bezier-easing');
 
 var Five = require("johnny-five");
-var FastLED = require("../fastled");
+var FastLED = require("../lib/fastled");
 var Promise = require('promise');
 var Color = require("color");
-var fader = require("../color_fade");
 
 var color = new Color().rgb(255,0,0);
 var black = new Color().rgb(0,0,0);
@@ -96,7 +95,7 @@ function fade(t, p1x, p1y, p2x, p2y){
         led.setColor(iN, nC);
       }
       led.show();
-      currentColor = nC;      
+      currentColor = nC;
     }
 
     steps += direction;
@@ -134,7 +133,7 @@ function remap( x, oMin, oMax, nMin, nMax ){
   }
 
   //check reversed output range
-  var reverseOutput = false;  
+  var reverseOutput = false;
   newMin = Math.min( nMin, nMax )
   newMax = Math.max( nMin, nMax )
   if (newMin != nMin){
