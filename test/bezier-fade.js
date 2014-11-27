@@ -78,6 +78,7 @@ var currentFade;
 function stopFade(){
   if(currentFade){
     clearTimeout(currentFade);
+    currentFade = null;
   }
 
   for(var iN=0; iN < led.length; iN++){
@@ -94,15 +95,19 @@ function fade(t, p1x, p1y, p2x, p2y){
 
   if(stepTime < 16){
     stepIncrease = Math.floor(16/stepTime);
+    stepTime = 16;
   }
 
   console.log("t", t, "StepTime", stepTime, "stepIncrease", stepIncrease, "colors", colors.length);
 
   if(currentFade){
     clearTimeout(currentFade);
+    currentFade = null;
   }
 
   var fadeStep = function(){
+    if(!currentFade){ return; }
+
     steps += stepIncrease
     if(steps >= colors.length){
       steps = 0;
