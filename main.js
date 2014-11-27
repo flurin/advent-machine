@@ -41,6 +41,35 @@ Scheduler.on("schedule", function(message){
   // Pulse leds
 })
 
+var printMessage = function(message){
+  config.printer.printer().then(function(printer){
+    printer.lineFeed(2);
+    printer.horizontalLine(32);
+
+    printer.left();
+    printer.small(true);
+    printer.printLine("" + due.getDate() + "-" + (due.getMonth() + 1) + "-" + (due.getYear() + 1900));
+
+    printer.reset();
+
+    printer.center();
+    pritner.big(true);
+    printer.printLine(message.name);
+
+    printer.reset();
+    printer.horizontalLine(32);
+
+    printer.printLine(message.desc);
+    printer.horizontalLine(32);
+
+    printer.lineFeed(2);
+    printer.print(function(){
+      console.log("Done printing");
+    });
+  });
+
+}
+
 var busy = false;
 Board.on("buttonDown", function(){
   if(busy){ return; }
