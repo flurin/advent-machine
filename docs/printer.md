@@ -2,7 +2,10 @@
 
 ## Some properties
 
-- Does 32 chars per line in normal font
+
+- Normal font: 32 chars per line;
+- Big font: 16 chars per line;
+- Small font: 42 chars per line;
 
 
 ## Printer commands through XML
