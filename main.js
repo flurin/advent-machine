@@ -38,37 +38,15 @@ var Scheduler = require("./lib/scheduler")(config);
 var Board = require("./lib/arduino/board")(config);
 
 Scheduler.on("schedule", function(message){
-  // Pulse leds
+  console.log("Schedule", message);
+
+
 })
 
-var printMessage = function(message){
-  config.printer.printer().then(function(printer){
-    printer.lineFeed(2);
-    printer.horizontalLine(32);
-
-    printer.left();
-    printer.small(true);
-    printer.printLine("" + due.getDate() + "-" + (due.getMonth() + 1) + "-" + (due.getYear() + 1900));
-
-    printer.reset();
-
-    printer.center();
-    pritner.big(true);
-    printer.printLine(message.name);
-
-    printer.reset();
-    printer.horizontalLine(32);
-
-    printer.printLine(message.desc);
-    printer.horizontalLine(32);
-
-    printer.lineFeed(2);
-    printer.print(function(){
-      console.log("Done printing");
-    });
-  });
-
-}
+Scheduler.on("immideate", function(message){
+  console.log("Print", message);
+  config.printer.printMessage(message);
+})
 
 var busy = false;
 Board.on("buttonDown", function(){
@@ -83,7 +61,8 @@ Board.on("buttonDown", function(){
   }).then(function(message){
     console.log("PRINT MESSAGE", message);
 
-    // Board.pulseLeds();
+    config.printer.printMessage(message);
+
     busy = false;
   });
 })
