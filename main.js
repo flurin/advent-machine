@@ -21,8 +21,9 @@ var config = {
   }
 }
 
-config.trello = require(config.trelloConfigPath);
+var Color = require("color");
 
+config.trello = require(config.trelloConfigPath);
 config.messages = require("./lib/trello/messages")(config);
 config.queue = require("./lib/trello/queue")(config);
 config.printer = require("./lib/printer")(config);
@@ -37,15 +38,31 @@ var Scheduler = require("./lib/scheduler")(config);
 // Board
 var Board = require("./lib/arduino/board")(config);
 
+var red = Color().rgb(255, 0, 0);
+var green = Color().rgb(0, 255, 0);
+var blue = Color().rgb(0, 0, 255);
+var black = Color().rgb(0, 0, 0);
+
+
 Scheduler.on("schedule", function(message){
   console.log("Schedule", message);
 
+  var pattern = [
+    [red, green, blue],
+    [black],
+    [green, blue, red],
+    [black],
+    [blue, red, green],
+    [black]
+  ]
 
+  Board.patternLeds(pattern, 500, 5000);
 })
 
-Scheduler.on("immideate", function(message){
+Scheduler.on("immediate", function(message){
   console.log("Print", message);
   config.printer.printMessage(message);
+
 })
 
 var busy = false;
