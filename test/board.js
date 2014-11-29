@@ -13,7 +13,7 @@ var board = require("../lib/arduino/board")(config);
 
 
 board.start().then(function(b){
-  console.log("Board started");
+  console.log("Board started", b);
 
   var red = Color().rgb(255, 0, 0);
   var green = Color().rgb(0, 255, 0);
@@ -30,6 +30,6 @@ board.start().then(function(b){
     [blue]
   ]
 
-  b.patternLeds(pattern, 500, 0);
+  board.patternLeds(pattern, 500, 0);
 
 });
