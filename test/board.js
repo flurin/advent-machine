@@ -30,6 +30,11 @@ board.start().then(function(b){
     [blue]
   ]
 
-  board.patternLeds(pattern, 500, 0);
+  try{
+    board.patternLeds(pattern, 500, 0);
+  } catch(err){
+    console.log(err);
+  }
+
 
 });
