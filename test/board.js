@@ -8,7 +8,7 @@ var config = {
   }
 }
 
-var board = require("./lib/arduino/board")(config);
+var board = require("../lib/arduino/board")(config);
 
 
 
