@@ -25,7 +25,7 @@ board.start().then(function(b){
     [black],
     [red, green],
     [black],
-    [red, green, blue]
+    [red, green, blue],
     [black],
     [blue]
   ]
