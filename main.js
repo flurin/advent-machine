@@ -70,8 +70,8 @@ Board.on("buttonDown", function(){
   if(busy){ return; }
   busy = true;
   config.queue.unshift().catch(function(err){
-    console.log("got ERR", err);
-    if(err == "no_messages"){
+    console.log("got ERR", err.msg);
+    if(err.err_msg == "no_messages"){
       return config.messages.getRandomImpatience();
     } else {
       throw err;
