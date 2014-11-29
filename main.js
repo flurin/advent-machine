@@ -60,7 +60,7 @@ Board.on("buttonDown", function(){
   Board.patternLeds(ledPatterns.blinkRed, 100, 200);
 
   config.queue.unshift().catch(function(err){
-    console.log("got ERR", err.msg);
+    console.log("got ERR", err.err_msg);
     if(err.err_msg == "no_messages"){
       return config.messages.getRandomImpatience();
     } else {
