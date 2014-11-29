@@ -21,7 +21,7 @@ var config = {
   }
 }
 
-var Color = require("color");
+var ledPatterns = require("./lib/arduino/patterns");
 
 config.trello = require(config.trelloConfigPath);
 config.messages = require("./lib/trello/messages")(config);
@@ -38,25 +38,10 @@ var Scheduler = require("./lib/scheduler")(config);
 // Board
 var Board = require("./lib/arduino/board")(config);
 
-var red = Color().rgb(255, 0, 0);
-var green = Color().rgb(0, 255, 0);
-var blue = Color().rgb(0, 0, 255);
-var black = Color().rgb(0, 0, 0);
-
-
 Scheduler.on("schedule", function(message){
   console.log("Schedule", message);
 
-  var pattern = [
-    [red, green, blue],
-    [black],
-    [green, blue, red],
-    [black],
-    [blue, red, green],
-    [black]
-  ]
-
-  Board.patternLeds(pattern, 500, 5000);
+  Board.patternLeds(ledPatterns.disco, 500, 5000);
 })
 
 Scheduler.on("immediate", function(message){
@@ -69,6 +54,11 @@ var busy = false;
 Board.on("buttonDown", function(){
   if(busy){ return; }
   busy = true;
+
+  // Give feedback.
+  Board.popLeds();
+  Board.patternLeds(ledPatterns.blinkRed, 100, 200);
+
   config.queue.unshift().catch(function(err){
     console.log("got ERR", err.msg);
     if(err.err_msg == "no_messages"){
@@ -78,7 +68,7 @@ Board.on("buttonDown", function(){
     }
   }).then(function(message){
     console.log("PRINT MESSAGE", message);
-
+    Board.popLeds();
     config.printer.printMessage(message);
 
     busy = false;
