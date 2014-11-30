@@ -46,7 +46,7 @@ Scheduler.on("schedule", function(message){
 
 Scheduler.on("immediate", function(message){
   console.log("Print", message);
-  config.printer.printMessage(message);
+  // config.printer.printMessage(message);
 })
 
 var busy = false;
@@ -68,7 +68,7 @@ Board.on("buttonDown", function(){
   }).then(function(message){
     console.log("PRINT MESSAGE", message);
     Board.popLedAction();
-    config.printer.printMessage(message);
+    // config.printer.printMessage(message);
 
     busy = false;
   });
