@@ -41,7 +41,7 @@ var Board = require("./lib/arduino/board")(config);
 Scheduler.on("schedule", function(message){
   console.log("Schedule", message);
 
-  Board.pushLedAction(ledPatterns.disco);
+  Board.pushLedAction(ledPatterns.disco());
 })
 
 Scheduler.on("immediate", function(message){
@@ -56,7 +56,7 @@ Board.on("buttonDown", function(){
 
   // Give feedback.
   Board.popLedAction();
-  Board.pushLedAction(ledPatterns.blinkRed);
+  Board.pushLedAction(ledPatterns.blinkRed());
 
   config.queue.unshift().catch(function(err){
     console.log("got ERR", err.err_msg);
