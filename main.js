@@ -64,7 +64,7 @@ Board.on("buttonDown", function(){
     if(err.err_msg == "no_messages"){
       Board.popLedAction();
       logger.debug("Main: ", "Getting an impatience message");
-      Board.pushLedAction(ledPatterns.blinkRed({count: 2}));
+      Board.pushLedAction(ledPatterns.blinkRed({count: 5}));
       return config.messages.getRandomImpatience();
     } else {
       throw err;
