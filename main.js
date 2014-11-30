@@ -5,7 +5,7 @@ var config = {
   trelloConfigPath : __dirname + "/trello-conf.json",
   publicPath : __dirname + '/public',
   port: 3000,
-  scheduleInterval : 10000,
+  scheduleInterval : 300*1000,
   messages : null,
   queue : null,
   boardConfig : {
