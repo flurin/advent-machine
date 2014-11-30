@@ -17,7 +17,8 @@
     "promise-debounce": "^1.0.0",
     "request": "^2.48.0",
     "serialport": "^1.4.6",
-    "thermalprinter": "https://github.com/flurin/thermalPrinter/tarball/feature-imageprinting"
+    "thermalprinter": "https://github.com/flurin/thermalPrinter/tarball/feature-imageprinting",
+    "winston": "^0.8.3"
   },
   "devDependencies": {},
   "scripts": {

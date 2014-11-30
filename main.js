@@ -1,3 +1,5 @@
+var logger = require("./lib/logger");
+
 // Config
 var config = {
   trelloConfigPath : __dirname + "/trello-conf.json",
@@ -39,13 +41,13 @@ var Scheduler = require("./lib/scheduler")(config);
 var Board = require("./lib/arduino/board")(config);
 
 Scheduler.on("schedule", function(message){
-  console.log("Schedule", message.name);
+  logger.debug("Main:", "Schedule message:", message.name);
 
   Board.pushLedAction(ledPatterns.disco());
 })
 
 Scheduler.on("immediate", function(message){
-  console.log("Print", message);
+  logger.debug("Main:", "Print immediate:", message.name);
   // config.printer.printMessage(message);
 })
 
@@ -59,16 +61,16 @@ Board.on("buttonDown", function(){
   Board.pushLedAction(ledPatterns.circleBlue());
 
   config.queue.unshift().catch(function(err){
-    console.log("got ERR", err.err_msg);
     if(err.err_msg == "no_messages"){
       Board.popLedAction();
+      logger.debug("Main: ", "Getting an impatience message");
       Board.pushLedAction(ledPatterns.blinkRed({count: 2}));
       return config.messages.getRandomImpatience();
     } else {
       throw err;
     }
   }).then(function(message){
-    console.log("PRINT MESSAGE", message.name);
+    logger.debug("Main:", "Print message", message.name);
     Board.popLedAction();
     // config.printer.printMessage(message);
 
