@@ -41,13 +41,12 @@ var Board = require("./lib/arduino/board")(config);
 Scheduler.on("schedule", function(message){
   console.log("Schedule", message);
 
-  Board.patternLeds(ledPatterns.disco, 500, 5000);
+  Board.pushLedAction(ledPatterns.disco);
 })
 
 Scheduler.on("immediate", function(message){
   console.log("Print", message);
   config.printer.printMessage(message);
-
 })
 
 var busy = false;
@@ -56,8 +55,8 @@ Board.on("buttonDown", function(){
   busy = true;
 
   // Give feedback.
-  Board.popLeds();
-  Board.patternLeds(ledPatterns.blinkRed, 100, 200);
+  Board.popLedAction();
+  Board.pushLedAction(ledPatterns.blinkRed);
 
   config.queue.unshift().catch(function(err){
     console.log("got ERR", err.err_msg);
@@ -68,7 +67,7 @@ Board.on("buttonDown", function(){
     }
   }).then(function(message){
     console.log("PRINT MESSAGE", message);
-    Board.popLeds();
+    Board.popLedAction();
     config.printer.printMessage(message);
 
     busy = false;
