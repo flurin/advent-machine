@@ -39,7 +39,7 @@ var Scheduler = require("./lib/scheduler")(config);
 var Board = require("./lib/arduino/board")(config);
 
 Scheduler.on("schedule", function(message){
-  console.log("Schedule", message);
+  console.log("Schedule", message.name);
 
   Board.pushLedAction(ledPatterns.disco());
 })
@@ -68,7 +68,7 @@ Board.on("buttonDown", function(){
       throw err;
     }
   }).then(function(message){
-    console.log("PRINT MESSAGE", message);
+    console.log("PRINT MESSAGE", message.name);
     Board.popLedAction();
     // config.printer.printMessage(message);
 
