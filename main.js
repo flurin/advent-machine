@@ -56,11 +56,13 @@ Board.on("buttonDown", function(){
 
   // Give feedback.
   Board.popLedAction();
-  Board.pushLedAction(ledPatterns.blinkRed());
+  Board.pushLedAction(ledPatterns.circleBlue());
 
   config.queue.unshift().catch(function(err){
     console.log("got ERR", err.err_msg);
     if(err.err_msg == "no_messages"){
+      Board.popLedAction();
+      Board.pushLedAction(ledPatterns.blinkRed({count: 2}));
       return config.messages.getRandomImpatience();
     } else {
       throw err;
