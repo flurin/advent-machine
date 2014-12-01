@@ -46,13 +46,13 @@ var Scheduler = require("./lib/scheduler")(config);
 var Board = require("./lib/arduino/board")(config);
 
 Scheduler.on("schedule", function(message){
-  logger.debug("Main:", "Schedule message:", message.name);
+  logger.info("Main:", "Schedule message:", message.name);
 
   Board.pushLedAction(ledPatterns.disco());
 });
 
 Scheduler.on("immediate", function(message){
-  logger.debug("Main:", "Print immediate:", message.name);
+  logger.info("Main:", "Print immediate:", message.name);
 
   config.printer.printMessage(message);
 });
@@ -62,6 +62,8 @@ Board.on("buttonDown", function(){
   if(busy){ return; }
   busy = true;
 
+  logger.info("Main:", "Button pressed!");
+
   // Give feedback.
   Board.popLedAction();
   Board.pushLedAction(ledPatterns.circleBlue());
@@ -69,14 +71,14 @@ Board.on("buttonDown", function(){
   config.queue.unshift().catch(function(err){
     if(err.code === "no_messages"){
       Board.popLedAction();
-      logger.debug("Main: ", "Getting an impatience message");
+      logger.info("Main: ", "Getting an impatience message");
       Board.pushLedAction(ledPatterns.blinkRed({count: 5}));
       return config.messages.getRandomImpatience();
     } else {
       throw err;
     }
   }).then(function(message){
-    logger.debug("Main:", "Print message", message.name);
+    logger.info("Main:", "Print message", message.name);
     Board.popLedAction();
     config.printer.printMessage(message);
 
