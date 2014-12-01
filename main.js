@@ -61,7 +61,7 @@ Board.on("buttonDown", function(){
   Board.pushLedAction(ledPatterns.circleBlue());
 
   config.queue.unshift().catch(function(err){
-    if(err.err_msg == "no_messages"){
+    if(err.code === "no_messages"){
       Board.popLedAction();
       logger.debug("Main: ", "Getting an impatience message");
       Board.pushLedAction(ledPatterns.blinkRed({count: 5}));
