@@ -48,7 +48,12 @@ var Board = require("./lib/arduino/board")(config);
 Scheduler.on("schedule", function(message){
   logger.info("Main:", "Schedule message:", message.name);
 
-  Board.pushLedAction(ledPatterns.disco());
+  var pattern;
+  if(message.ledAction){
+    pattern = ledPatterns[message.ledAction] || ledPatterns.disco;
+  }
+
+  Board.pushLedAction(pattern());
 });
 
 Scheduler.on("immediate", function(message){
