@@ -24,17 +24,19 @@ var config = {
       commandDelay: 200
     }
   }
-}
+};
 
 var ledPatterns = require("./lib/arduino/patterns");
 
+// Config file
 config.trello = require(config.trelloConfigPath);
+
+// Core components
 config.messages = require("./lib/trello/messages")(config);
 config.queue = require("./lib/trello/queue")(config);
 config.printer = require("./lib/printer")(config);
 
-
-// Server
+// App server (mostly for debugging and testing)
 var Server = require("./lib/server")(config);
 
 // Scheduler
@@ -47,12 +49,13 @@ Scheduler.on("schedule", function(message){
   logger.debug("Main:", "Schedule message:", message.name);
 
   Board.pushLedAction(ledPatterns.disco());
-})
+});
 
 Scheduler.on("immediate", function(message){
   logger.debug("Main:", "Print immediate:", message.name);
+
   config.printer.printMessage(message);
-})
+});
 
 var busy = false;
 Board.on("buttonDown", function(){
