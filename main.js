@@ -1,4 +1,7 @@
+var Promise = require('promise');
+
 var logger = require("./lib/logger");
+var argv = require('minimist')(process.argv.slice(2), {boolean: true});
 
 // Config
 var config = {
@@ -76,11 +79,16 @@ Board.on("buttonDown", function(){
 
     busy = false;
   });
-})
+});
 
 // Start the whole shebang
-Board.start().then(function(){
+Promise.resolve().then(function(){
+  if(!argv.noboard){
+    // don't start the board if we pass --noboard.
+    return Board.start();
+  }
+}).then(function(){
   return Scheduler.start();
 }).then(function(){
   return Server.start();
-})
+});
