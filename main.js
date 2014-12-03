@@ -1,4 +1,5 @@
 var Promise = require('promise');
+var _ = require('lodash');
 
 var logger = require("./lib/logger");
 var argv = require('minimist')(process.argv.slice(2), {boolean: true});
@@ -49,8 +50,10 @@ Scheduler.on("schedule", function(message){
   logger.info("Main:", "Schedule message:", message.name);
 
   var pattern;
-  if(message.ledAction){
-    pattern = ledPatterns[message.ledAction] || ledPatterns.disco;
+  if(message.ledAction && ledPatterns[message.ledAction]){
+    pattern = ledPatterns[message.ledAction];
+  } else {
+    pattern = _.sample(ledPatterns) // Pick a random pattern.
   }
 
   Board.pushLedAction(pattern());
