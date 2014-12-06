@@ -1,12 +1,10 @@
 var Hypher = require('hypher');
 var NL = require('hyphenation.nl');
-var linewrap = require('linewrap');
 
 var L = 20;
 var s = "Dit is een liefdesbrief aan de liefste Lieke\n\nGroetjes, Le Flegmeister";
 
 var hyphenator = new Hypher(NL);
-var wrapper = linewrap(L);
 
 var lines = s.split(/\n\r?/);
 var newLines = [];
