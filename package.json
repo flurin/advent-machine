@@ -8,6 +8,7 @@
     "body-parser": "^1.9.0",
     "color": "^0.7.1",
     "ejs": "^1.0.0",
+    "encoding": "^0.1.11",
     "express": "^4.9.5",
     "express-ejs-layouts": "^1.1.0",
     "extend": "^2.0.0",
